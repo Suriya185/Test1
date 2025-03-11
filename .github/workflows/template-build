@@ -1,0 +1,15 @@
+name: build workflow
+on:
+  workflow_call:
+    inputs:
+      destroy:
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Destroy Message
+        run: echo '${{ inputs.destroy }}'
