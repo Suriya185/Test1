@@ -1,0 +1,63 @@
+name: deploy
+on:
+  workflow_dispatch:
+    inputs:
+      destroy:
+        description: 'Destroy the resources'
+        type: boolean
+        default: false
+        required: false
+      dev:
+        description: 'Deploy Dev'
+        type: boolean
+        default: false
+        required: false
+      beta:
+        description: 'Deploy beta'
+        type: boolean
+        default: false
+        required: false
+      preprod:
+        description: 'Deploy preprod'
+        type: boolean
+        default: false
+        required: false
+      perf:
+        description: 'Deploy perf'
+        type: boolean
+        default: false
+        required: false
+      production:
+        description: 'Deploy production'
+        type: boolean
+        default: false
+        required: false
+            
+  push:
+    branches:
+      - 'main'
+      - 'Github_Migration'
+      
+jobs:
+  Build: 
+    uses: ./.github/workflows/template-build.yaml
+    with:
+    # for the testing purpose
+      destroy: false
+      # destroy: ${{ github.event.inputs.destroy }}
+
+  Deploy:
+    needs: Build
+    strategy:
+      matrix:
+        env: ['dev', 'beta', 'preprod', 'perf', 'prod']
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to environment
+        if: ${{ matrix.env == 'dev' || matrix.env == 'beta' || matrix.env == 'preprod' || matrix.env == 'perf' || matrix.env == 'prod' }}
+        uses: ./.github/workflows/template-deploy.yaml
+        with:
+          environments: ${{ matrix.env }}
+      
+
+    
