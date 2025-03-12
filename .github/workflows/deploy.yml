@@ -31,13 +31,7 @@ on:
         description: 'Deploy production'
         type: boolean
         default: false
-        required: false
-            
-  push:
-    branches:
-      - 'main'
-      - 'Github_Migration'
-      
+        required: false      
 jobs:
   Build: 
     uses: ./.github/workflows/template-build.yaml
@@ -53,11 +47,32 @@ jobs:
         env: ['dev', 'beta', 'preprod', 'perf', 'prod']
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to environment
-        if: ${{ matrix.env == 'dev' || matrix.env == 'beta' || matrix.env == 'preprod' || matrix.env == 'perf' || matrix.env == 'prod' }}
+      - name: Deploy to dev
+        if: ${{ matrix.env == 'dev' && inputs.dev == 'true' }}
         uses: ./.github/workflows/template-deploy.yaml
         with:
-          environments: ${{ matrix.env }}
-      
+          environments: inputs.${{ matrix.env }}
 
-    
+      - name: Deploy to beta
+        if: ${{ matrix.env == 'beta' && inputs.beta == 'true' }}
+        uses: ./.github/workflows/template-deploy.yaml
+        with:
+          environments: inputs.${{ matrix.env }}
+
+      - name: Deploy to preprod
+        if: ${{ matrix.env == 'preprod' && inputs.preprod == 'true' }}
+        uses: ./.github/workflows/template-deploy.yaml
+        with:
+          environments: inputs.${{ matrix.env }}
+
+      - name: Deploy to perf
+        if: ${{ matrix.env == 'perf' && inputs.perf == 'true' }}
+        uses: ./.github/workflows/template-deploy.yaml
+        with:
+          environments: inputs.${{ matrix.env }}
+
+      - name: Deploy to production
+        if: ${{ matrix.env == 'production' && inputs.production == 'true' }}
+        uses: ./.github/workflows/template-deploy.yaml
+        with:
+          environments: inputs.${{ matrix.env }}
