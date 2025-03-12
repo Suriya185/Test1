@@ -48,6 +48,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to environment
+        run: echo '${{inputs.${{ matrix.env }}}}'
+
+      - name: Deploy to environment
+        run: echo '${{ inputs[matrix.env] }}'
+
+      - name: Deploy to environment
         if: ${{ inputs[matrix.env] == 'true' }}
         uses: ./.github/workflows/template-deploy.yaml
         with:
