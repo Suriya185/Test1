@@ -44,7 +44,7 @@ jobs:
     needs: Build
     strategy:
       matrix:
-        env: ['dev', 'beta', 'preprod', 'perf', 'prod']
+        env: ['dev', 'beta', 'preprod', 'perf', 'production']
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to environment
@@ -54,4 +54,4 @@ jobs:
         if: ${{ inputs[matrix.env] == 'true' }}
         uses: ./.github/workflows/template-deploy.yaml
         with:
-          environments: inputs[matrix.env]
+          environments: matrix.env
