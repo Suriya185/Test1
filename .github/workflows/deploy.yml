@@ -47,32 +47,8 @@ jobs:
         env: ['dev', 'beta', 'preprod', 'perf', 'prod']
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to dev
-        if: ${{ matrix.env == 'dev' && inputs.dev == 'true' }}
-        uses: ./.github/workflows/template-deploy.yaml
-        with:
-          environments: inputs.${{ matrix.env }}
-
-      - name: Deploy to beta
-        if: ${{ matrix.env == 'beta' && inputs.beta == 'true' }}
-        uses: ./.github/workflows/template-deploy.yaml
-        with:
-          environments: inputs.${{ matrix.env }}
-
-      - name: Deploy to preprod
-        if: ${{ matrix.env == 'preprod' && inputs.preprod == 'true' }}
-        uses: ./.github/workflows/template-deploy.yaml
-        with:
-          environments: inputs.${{ matrix.env }}
-
-      - name: Deploy to perf
-        if: ${{ matrix.env == 'perf' && inputs.perf == 'true' }}
-        uses: ./.github/workflows/template-deploy.yaml
-        with:
-          environments: inputs.${{ matrix.env }}
-
-      - name: Deploy to production
-        if: ${{ matrix.env == 'production' && inputs.production == 'true' }}
+      - name: Deploy to environment
+        if: ${{ inputs[matrix.env] == 'true' }}
         uses: ./.github/workflows/template-deploy.yaml
         with:
           environments: inputs.${{ matrix.env }}
