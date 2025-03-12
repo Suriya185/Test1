@@ -2,13 +2,20 @@ name: Deploy Workflow
 on:
   workflow_call:
     inputs:
+      destroy:
+        required: false
+        type: string
       environments:
         required: true
         type: string
 
+env: 
+  terraformStateKey: main.terraform.${{ inputs.environments }}.tfstate
+  terraformPlanKey: ${{ github.run_id }}.${{ github.run_attempt }}.main.${{ inputs.environments }}.tfplan
+
 jobs:
-  Deploy:
-    runs-on: ubuntu-latest
+  Plan:
+    runs-on: ubuntu-latest  
     steps:
-      - name: print environments
-        run: echo "${{  inputs.environments }}"
+      - name: Plan_${{inputs.environments}} 
+        run:  echo '${{env.terraformStateKey}}----${{env.terraformPlanKey}}'
