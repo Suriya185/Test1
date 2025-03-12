@@ -42,35 +42,35 @@ jobs:
    
   deploy-dev:
     needs: build
-    if: ${{ inputs.dev === true }}
+    if: ${{ inputs.dev == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: dev
 
   deploy-beta:
     needs: build
-    if: ${{ inputs.beta === true }}
+    if: ${{ inputs.beta == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: beta
 
   deploy-preprod:
     needs: build
-    if: ${{ inputs.preprod === true }}
+    if: ${{ inputs.preprod == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: preprod
 
   deploy-perf:
     needs: build
-    if: ${{ inputs.perf === true }}
+    if: ${{ inputs.perf == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: perf
 
   deploy-production:
     needs: build
-    if: ${{ inputs.production === true }}
+    if: ${{ inputs.production == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: production
