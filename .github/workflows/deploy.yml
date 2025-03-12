@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       destroy:
-        description: 'Destroy the resources'
-        type: boolean
-        default: false
+        description: 'Enter text "destroy" to destroy selected environments'
+        type: string
+        default: ''
         required: false
       dev:
         description: 'Deploy Dev'
