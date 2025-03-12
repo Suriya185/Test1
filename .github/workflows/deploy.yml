@@ -51,7 +51,7 @@ jobs:
         run: echo '${{ inputs[matrix.env] }}'
 
       - name: Deploy to environment
-        if: ${{ inputs[matrix.env] == 'true' }}
+        if: ${{ inputs[matrix.env] == true }}
         uses: ./.github/workflows/template-deploy.yaml
         with:
           environments: matrix.env
