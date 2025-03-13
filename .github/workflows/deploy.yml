@@ -45,14 +45,14 @@ jobs:
     if: ${{ inputs.dev == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
-      environments: dev
+      ENVIRONMENT: dev
       
   deploy-dev:
     needs: plan-dev
     if: ${{ inputs.dev == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
-      environments: dev   
+      ENVIRONMENT: dev   
 
   deploy-beta:
     needs: build
