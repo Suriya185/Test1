@@ -5,7 +5,7 @@ on:
       destroy:
         required: false
         type: string
-      environments:
+      ENVIRONMENT:
         required: true
         type: string
 
