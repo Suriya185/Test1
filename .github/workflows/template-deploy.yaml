@@ -15,7 +15,8 @@ env:
 
 jobs:
   Plan:
-    runs-on: ubuntu-latest  
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.ENVIRONMENT }}
     steps:
       - name: Plan_${{inputs.environments}} 
         run:  echo '${{env.terraformStateKey}}----${{env.terraformPlanKey}}'
