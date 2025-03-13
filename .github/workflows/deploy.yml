@@ -53,6 +53,20 @@ jobs:
     uses: ./.github/workflows/template-deploy.yaml
     with:
       ENVIRONMENT: dev
+  
+  plan-beta:
+    needs: build
+    if: ${{ inputs.beta == true }}
+    uses: ./.github/workflows/template-deploy.yaml
+    with:
+      ENVIRONMENT: beta
+
+  deploy-beta:
+    needs: plan-beta
+    if: ${{ inputs.beta == true }}
+    uses: ./.github/workflows/template-deploy.yaml
+    with:
+      ENVIRONMENT: beta
 
 
 
