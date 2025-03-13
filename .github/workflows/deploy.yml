@@ -40,12 +40,19 @@ jobs:
       destroy: false
       # destroy: ${{ github.event.inputs.destroy }}
    
-  deploy-dev:
+  plan-dev:
     needs: build
     if: ${{ inputs.dev == true }}
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: dev
+      
+  deploy-dev:
+    needs: plan-dev
+    if: ${{ inputs.dev == true }}
+    uses: ./.github/workflows/template-deploy.yaml
+    with:
+      environments: dev   
 
   deploy-beta:
     needs: build
@@ -74,5 +81,6 @@ jobs:
     uses: ./.github/workflows/template-deploy.yaml
     with:
       environments: production
+
 
 
